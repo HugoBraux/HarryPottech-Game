@@ -1,0 +1,21 @@
+{
+    "configurations": [
+        {
+            "name": "Mac 3DS Dev",
+            "includePath": [
+                "${workspaceFolder}/**",
+                "/opt/devkitpro/libctru/include",
+                "/opt/devkitpro/portlibs/3ds/include"
+            ],
+            "defines": [
+                "__3DS__"
+            ],
+            "macFrameworkPath": [],
+            "compilerPath": "/opt/devkitpro/devkitARM/bin/arm-none-eabi-gcc",
+            "cStandard": "c11",
+            "cppStandard": "c++17",
+            "intelliSenseMode": "linux-gcc-arm"
+        }
+    ],
+    "version": 4
+}
