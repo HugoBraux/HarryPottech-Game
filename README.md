@@ -6,35 +6,6 @@
 
 Il s'agit d'un jeu de type clicker où le but est de rapporter de l'argent à la liste, dans le but d'organiser des événements battre la liste adverse. L'objectif principal est donc d'avoir le plus d'influence.
 
-# V1 du jeu :
-
-  <u>Lancement du jeu :</u>
-  
-  - Lancement du jeu et écran d'acceuil avec le logo HarryPottech - The Great Adventure sur l'écran du haut. Sur l'écran du bas, bouton "démarrer la campagne" ou "reprendre la sauvegarde"
-  
-  <u>Jeu principal :</u>
-  - Sur l'écran du bas : zone de clique pour gagner de l'argent (La tête du Président avec des lunettes rondes et un éclair) et boutons pour ouvrir la boutique, les événements, et sauvegarder.
-  - Sur l'écran du haut : affichage du compte en banque / du niveau d'influence vs La Révolutionaliste / des statistiques de génération (argent par seconde) / historique des derniers évenements
-
-  <u>Boutique :</u>
-  - Recruter des membres de la liste
-  - Organiser des événements
-
-  <u>Boosts :</u>
-  - Membres de la liste : cliquent automatiquement à la place du joueur (certains rapportent plus que d'autres selon leur rareté). Le prix est évolutif à chaque membre recruté
-  - Goodies : Améliorent la puissance de vos propres clics (clic manuel)
-  - Events : les events rapportent de l'influence. Les events disponibles sont le petit déjeuner, le repas, l'afterwort et la grosse soirée
-
-  <u>Sauvegarde :</u>
-  - Sauvegarde locale sur la carte SD de la 3DS pour garder sa progression.
-
-# Fonctions additionnelles :
-
-- Effets sonores de sorts magiques lors des clics et une musique en fond.
-- Des évenements se déclenchent aléatoirement (par exemple perte d'influence car évenement de l'autre équipe, attraper le vif d'or sur l'écran)
-- Si premier lancement du jeu, petite cinématique avec le choixpeau qui explique le principe du jeu
-- Succès et trophées
-
 # Equipe de développement :
 
 Le jeu est développé par Hugo Braux et Baptiste Guilleux, étudiants en troisième année ISIE à Polytech Tours.
@@ -71,3 +42,36 @@ smdhtool : Outil utilisé pour empaqueter l'icône, le titre, l'auteur et la des
 Émulation et Tests :
 
 Lime 3DS : Émulateur 3DS utilisé pour exécuter et tester le jeu pendant le développement.
+
+# V1 du jeu :
+
+  Lancement du jeu :
+  
+  - Lancement du jeu et écran d'acceuil avec le logo HarryPottech - The Great Adventure sur l'écran du haut. Sur l'écran du bas, bouton "démarrer la campagne" ou "reprendre la sauvegarde"
+  
+  Jeu principal :
+  - Sur l'écran du bas : zone de clique pour gagner de l'argent (La tête du Président avec des lunettes rondes et un éclair) et boutons pour ouvrir la boutique, les événements, et sauvegarder.
+  - Sur l'écran du haut : affichage du compte en banque / du niveau d'influence vs La Révolutionaliste / des statistiques de génération (argent par seconde) / historique des derniers évenements
+
+  Boutique :
+  - Recruter des membres de la liste
+  - Organiser des événements
+
+  Boosts :
+  - Membres de la liste : cliquent automatiquement à la place du joueur (certains rapportent plus que d'autres selon leur rareté). Le prix est évolutif à chaque membre recruté
+  - Goodies : Améliorent la puissance de vos propres clics (clic manuel)
+  - Events : les events rapportent de l'influence. Les events disponibles sont le petit déjeuner, le repas, l'afterwort et la grosse soirée
+
+  Sauvegarde :
+  - Sauvegarde locale sur la carte SD de la 3DS pour garder sa progression.
+
+# Equilibrage et métriques :
+
+
+
+# Fonctions additionnelles :
+
+- Effets sonores de sorts magiques lors des clics et une musique en fond.
+- Des évenements se déclenchent aléatoirement (par exemple perte d'influence car évenement de l'autre équipe, attraper le vif d'or sur l'écran)
+- Si premier lancement du jeu, petite cinématique avec le choixpeau qui explique le principe du jeu
+- Succès et trophées
