@@ -35,3 +35,9 @@ Il s'agit d'un jeu de type clicker où le but est de rapporter de l'argent à la
 - Si premier lancement du jeu, petite cinématique avec le choixpeau qui explique le principe du jeu
 - Succès et trophées
 
+# Equipe de développement :
+
+Le jeu est développé par Hugo Braux et Baptiste Guilleux, étudiants en troisième année ISIE à Polytech Tours.
+
+Baptiste s'occupe de la gestion de projet ainsi que du développement général.
+Hugo s'occupe du game design ainsi que du développement.
