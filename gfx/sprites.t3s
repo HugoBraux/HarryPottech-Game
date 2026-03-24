@@ -1,1 +1,4 @@
+--atlas -f rgba8888 -z auto
 president.png
+bg_top.png
+bg_bottom.png
