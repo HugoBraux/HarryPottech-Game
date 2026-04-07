@@ -36,6 +36,19 @@ typedef struct {
 } ItemBoutique;
 
 typedef struct {
+    bool active;
+    float x;
+    float y;
+    float speed_x;
+    float speed_y;
+    u64 next_spawn_time;
+    char popup_text[32];
+    int popup_timer;
+    float popup_x;
+    float popup_y;
+} VifDOr;
+
+typedef struct {
     long long argent;
     double fraction_argent; 
     long long click_power;
@@ -46,6 +59,7 @@ typedef struct {
     ItemBoutique membres[NB_MEMBRES];
     ItemBoutique goodies[NB_GOODIES];
     ItemBoutique events[NB_EVENTS];
+    VifDOr vif;
 } PlayerData;
 
 void Game_Init(PlayerData* player);
@@ -55,5 +69,7 @@ void Game_UpdatePassiveIncome(PlayerData* player);
 void Game_Click(PlayerData* player);
 bool Game_BuyItem(PlayerData* player, ItemType type, int index);
 void Game_InitDefaultItems(PlayerData* player);
+void Game_UpdateVifDOr(PlayerData* player);
+bool Game_ClickVifDOr(PlayerData* player, int tx, int ty);
 
 #endif

@@ -5,11 +5,12 @@ static C3D_RenderTarget* topScreen;
 static C3D_RenderTarget* bottomScreen;
 
 static C2D_SpriteSheet spriteSheet;
-static C2D_Sprite sprites[13];
-static bool spriteLoaded[13] = {false};
+static C2D_Sprite sprites[14];
+static bool spriteLoaded[14] = {false};
 
 static C2D_TextBuf staticBuf;
 static C2D_TextBuf dynamicBuf;
+static C2D_TextBuf popupBuf;
 static C2D_Text startText, moneyText, shopText, infText;
 
 static long long last_argent_drawn = -1; 
@@ -28,6 +29,7 @@ void Render_Init(void) {
 
     staticBuf = C2D_TextBufNew(4096);
     dynamicBuf = C2D_TextBufNew(4096);
+    popupBuf = C2D_TextBufNew(256);
 
     colorDeepPurple = C2D_Color32(45, 15, 65, 255);
     colorGold = C2D_Color32(255, 215, 0, 255);
@@ -41,7 +43,7 @@ void Render_Init(void) {
     spriteSheet = C2D_SpriteSheetLoad("romfs:/gfx/sprites.t3x");
     if (spriteSheet) {
         size_t numSprites = C2D_SpriteSheetCount(spriteSheet);
-        for(size_t i = 0; i < numSprites && i < 13; i++) {
+        for(size_t i = 0; i < numSprites && i < 14; i++) {
             C2D_SpriteFromSheet(&sprites[i], spriteSheet, i);
             spriteLoaded[i] = true;
         }
@@ -61,7 +63,7 @@ void Render_Init(void) {
             C2D_SpriteSetCenter(&sprites[8], 0.5f, 0.5f);
             C2D_SpriteSetPos(&sprites[8], 160.0f, 140.0f);
         }
-        for (int i = 9; i <= 12; i++) {
+        for (int i = 9; i <= 13; i++) {
             if (spriteLoaded[i]) C2D_SpriteSetCenter(&sprites[i], 0.5f, 0.5f);
         }
     }
@@ -207,6 +209,23 @@ void Render_DrawMainScreen(PlayerData* player, int clickAnimTimer) {
             }
         }
     }
+
+    if (player->vif.active) {
+        if (spriteLoaded[13]) {
+            C2D_SpriteSetPos(&sprites[13], player->vif.x, player->vif.y);
+            C2D_DrawSprite(&sprites[13]);
+        } else {
+            C2D_DrawRectSolid(player->vif.x - 10.0f, player->vif.y - 10.0f, 0.5f, 20.0f, 20.0f, colorGold);
+        }
+    }
+
+    if (player->vif.popup_timer > 0) {
+        C2D_TextBufClear(popupBuf);
+        C2D_Text popupText;
+        C2D_TextParse(&popupText, popupBuf, player->vif.popup_text);
+        C2D_TextOptimize(&popupText);
+        C2D_DrawText(&popupText, C2D_WithColor | C2D_AtBaseline | C2D_AlignCenter, player->vif.popup_x, player->vif.popup_y, 0.5f, 0.6f, 0.6f, colorGold);
+    }
 }
 
 void Render_DrawShopScreen(PlayerData* player, int shopScroll) {
@@ -230,6 +249,7 @@ void Render_DrawShopScreen(PlayerData* player, int shopScroll) {
 }
 
 void Render_Exit(void) {
+    C2D_TextBufDelete(popupBuf);
     C2D_TextBufDelete(dynamicBuf);
     C2D_TextBufDelete(staticBuf);
     if (spriteSheet) C2D_SpriteSheetFree(spriteSheet);

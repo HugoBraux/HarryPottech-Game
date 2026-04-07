@@ -69,6 +69,11 @@ void Game_Init(PlayerData* player) {
     player->influence = 0;
     player->state = STATE_TITLE;
     player->last_update_time = osGetTime();
+    
+    player->vif.active = false;
+    player->vif.next_spawn_time = osGetTime() + 10000 + (rand() % 15000);
+    player->vif.popup_timer = 0;
+
     Game_InitDefaultItems(player);
 }
 
@@ -86,6 +91,9 @@ void Game_Load(PlayerData* player) {
         fread(player, sizeof(PlayerData), 1, f);
         fclose(f);
         player->last_update_time = osGetTime();
+        player->vif.active = false;
+        player->vif.next_spawn_time = osGetTime() + 10000 + (rand() % 15000);
+        player->vif.popup_timer = 0;
 
         for(int i = 0; i < NB_MEMBRES; i++) {
             if (player->membres[i].niveau > 0 && player->membres[i].render_x == -1.0f) {
@@ -97,6 +105,76 @@ void Game_Load(PlayerData* player) {
             }
         }
     }
+}
+
+void Game_UpdateVifDOr(PlayerData* player) {
+    u64 current_time = osGetTime();
+    
+    if (player->vif.popup_timer > 0) {
+        player->vif.popup_timer--;
+        player->vif.popup_y -= 0.5f;
+    }
+
+    if (!player->vif.active) {
+        if (current_time >= player->vif.next_spawn_time) {
+            player->vif.active = true;
+            player->vif.y = 50.0f + (rand() % 140);
+            
+            if (rand() % 2 == 0) {
+                player->vif.x = -20.0f;
+                player->vif.speed_x = 2.0f + (rand() % 3);
+            } else {
+                player->vif.x = 340.0f;
+                player->vif.speed_x = -(2.0f + (rand() % 3));
+            }
+            player->vif.speed_y = (rand() % 3) - 1.0f;
+        }
+    } else {
+        player->vif.x += player->vif.speed_x;
+        player->vif.y += player->vif.speed_y;
+        
+        if (player->vif.y < 40.0f || player->vif.y > 220.0f) {
+            player->vif.speed_y = -player->vif.speed_y;
+        }
+        
+        if (player->vif.x < -30.0f || player->vif.x > 350.0f) {
+            player->vif.active = false;
+            player->vif.next_spawn_time = current_time + 10000 + (rand() % 15000);
+        }
+    }
+}
+
+bool Game_ClickVifDOr(PlayerData* player, int tx, int ty) {
+    if (player->vif.active) {
+        if (tx >= player->vif.x - 10.0f && tx <= player->vif.x + 30.0f &&
+            ty >= player->vif.y - 10.0f && ty <= player->vif.y + 30.0f) {
+            
+            player->vif.active = false;
+            player->vif.next_spawn_time = osGetTime() + 10000 + (rand() % 15000);
+            
+            player->vif.popup_x = tx;
+            player->vif.popup_y = ty - 15.0f;
+            player->vif.popup_timer = 90;
+            
+            int reward = rand() % 3;
+            if (reward == 0) {
+                long long bonus = (long long)(player->argent * 0.4);
+                player->argent += bonus;
+                snprintf(player->vif.popup_text, sizeof(player->vif.popup_text), "+%lld e", bonus);
+            } else if (reward == 1) {
+                long long bonus = 100 + (rand() % 400);
+                player->influence += bonus;
+                snprintf(player->vif.popup_text, sizeof(player->vif.popup_text), "+%lld Inf", bonus);
+            } else {
+                long long bonus = player->revenu_passif_sec * 30;
+                if (bonus == 0) bonus = 50;
+                player->argent += bonus;
+                snprintf(player->vif.popup_text, sizeof(player->vif.popup_text), "+%lld e", bonus);
+            }
+            return true;
+        }
+    }
+    return false;
 }
 
 void Game_UpdatePassiveIncome(PlayerData* player) {

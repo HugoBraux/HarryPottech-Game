@@ -49,6 +49,7 @@ int main(int argc, char **argv) {
         } 
         else if (player.state == STATE_MAIN) {
             bool clicked = false;
+            Game_UpdateVifDOr(&player);
             
             if (kDown & KEY_A) {
                 clicked = true;
@@ -56,7 +57,10 @@ int main(int argc, char **argv) {
                 touchPosition touch;
                 hidTouchRead(&touch);
                 
-                if (touch.px >= UI_SHOP_X_MIN && touch.px <= UI_SHOP_X_MAX && touch.py >= UI_SHOP_Y_MIN && touch.py <= UI_SHOP_Y_MAX) {
+                if (Game_ClickVifDOr(&player, touch.px, touch.py)) {
+                    
+                }
+                else if (touch.px >= UI_SHOP_X_MIN && touch.px <= UI_SHOP_X_MAX && touch.py >= UI_SHOP_Y_MIN && touch.py <= UI_SHOP_Y_MAX) {
                     player.state = STATE_SHOP;
                     Render_UpdateShopText(&player, shopScroll, shopCategory);
                 } 
