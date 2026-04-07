@@ -11,7 +11,7 @@ void Render_Exit(void);
 void Render_FormatNumber(long long num, char* buf, size_t size);
 
 void Render_UpdateMoneyText(PlayerData* player);
-void Render_UpdateShopText(PlayerData* player, int shopScroll);
+void Render_UpdateShopText(PlayerData* player, int shopScroll, int shopCategory);
 
 void Render_DrawTitleScreen(void);
 void Render_DrawMainScreen(PlayerData* player, int clickAnimTimer);

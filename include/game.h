@@ -2,8 +2,12 @@
 #define GAME_H
 
 #include <stdbool.h>
+#include <3ds.h>
 
-#define NB_ITEMS_BOUTIQUE 36
+#define NB_MEMBRES 26
+#define NB_GOODIES 6
+#define NB_EVENTS 4
+#define INFLUENCE_MAX 1000000LL
 
 typedef enum {
     STATE_TITLE = 0,
@@ -12,9 +16,9 @@ typedef enum {
 } GameState;
 
 typedef enum {
-    ITEM_MEMBRE,
-    ITEM_GOODY,
-    ITEM_EVENT
+    ITEM_MEMBRE = 0,
+    ITEM_GOODY = 1,
+    ITEM_EVENT = 2
 } ItemType;
 
 typedef struct {
@@ -26,6 +30,9 @@ typedef struct {
     char description[64];
     int niveau;
     long long cout_actuel;
+    float render_x;
+    float render_y;
+    int visual_type;
 } ItemBoutique;
 
 typedef struct {
@@ -35,13 +42,18 @@ typedef struct {
     long long revenu_passif_sec;
     long long influence;
     GameState state;
-    
-    ItemBoutique boutique[NB_ITEMS_BOUTIQUE];
+    u64 last_update_time;
+    ItemBoutique membres[NB_MEMBRES];
+    ItemBoutique goodies[NB_GOODIES];
+    ItemBoutique events[NB_EVENTS];
 } PlayerData;
 
 void Game_Init(PlayerData* player);
+void Game_Save(PlayerData* player);
+void Game_Load(PlayerData* player);
 void Game_UpdatePassiveIncome(PlayerData* player);
 void Game_Click(PlayerData* player);
-bool Game_BuyItem(PlayerData* player, int item_index);
+bool Game_BuyItem(PlayerData* player, ItemType type, int index);
+void Game_InitDefaultItems(PlayerData* player);
 
 #endif
