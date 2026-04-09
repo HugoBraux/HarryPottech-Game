@@ -13,6 +13,21 @@ Le jeu est développé par Hugo Braux et Baptiste Guilleux, étudiants en troisi
 Baptiste est responsable de la gestion de projet ainsi que de l'environnement de développement et du développement.
 Hugo s'occupe du game design, des textures ainsi que du développement.
 
+## Installation et Compilation
+
+### Pour les joueurs
+
+**Sur une console de la famille 3DS (équipée d'un Custom Firmware comme Luma3DS) :**
+* *Via le Homebrew Launcher (.3dsx)* : Placez le fichier `HarryPottech.3dsx` dans le dossier `3ds/` à la racine de votre carte SD. Lancez le Homebrew Launcher et sélectionnez le jeu.
+
+**Sur Émulateur (PC, Mac, Linux, Android, iOS) :**
+Téléchargez l'émulateur [Lime 3DS](https://lime3ds.github.io/). Lancez l'émulateur, faites **Fichier > Charger un fichier...** et sélectionnez `HarryPottech.3dsx`.
+
+### Pour les développeurs (Compilation depuis les sources)
+1. Installez l'environnement [devkitPro](https://devkitpro.org/) avec les paquets `devkitARM`, `libctru`, `citro2d` et `citro3d`.
+2. Clonez ce dépôt.
+3. Ouvrez un terminal à la racine du projet et lancez simplement la commande `make`.
+
 # Technologies utilisées :
 
 Langages : C
