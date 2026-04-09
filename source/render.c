@@ -5,13 +5,13 @@ static C3D_RenderTarget* topScreen;
 static C3D_RenderTarget* bottomScreen;
 
 static C2D_SpriteSheet spriteSheet;
-static C2D_Sprite sprites[14];
-static bool spriteLoaded[14] = {false};
+static C2D_Sprite sprites[15];
+static bool spriteLoaded[15] = {false};
 
 static C2D_TextBuf staticBuf;
 static C2D_TextBuf dynamicBuf;
 static C2D_TextBuf popupBuf;
-static C2D_Text startText, moneyText, shopText, infText;
+static C2D_Text startText, moneyText, statsText, shopText, infText;
 
 static long long last_argent_drawn = -1; 
 static long long last_revenu_drawn = -1;
@@ -43,7 +43,7 @@ void Render_Init(void) {
     spriteSheet = C2D_SpriteSheetLoad("romfs:/gfx/sprites.t3x");
     if (spriteSheet) {
         size_t numSprites = C2D_SpriteSheetCount(spriteSheet);
-        for(size_t i = 0; i < numSprites && i < 14; i++) {
+        for(size_t i = 0; i < numSprites && i < 15; i++) {
             C2D_SpriteFromSheet(&sprites[i], spriteSheet, i);
             spriteLoaded[i] = true;
         }
@@ -54,7 +54,6 @@ void Render_Init(void) {
             C2D_SpriteSetPos(&sprites[4], 200.0f, 80.0f);
         }
         if(spriteLoaded[5]) C2D_SpriteSetCenter(&sprites[5], 0.5f, 0.5f);
-        if(spriteLoaded[6]) C2D_SpriteSetPos(&sprites[6], 270.0f, 5.0f);
         if(spriteLoaded[7]) {
             C2D_SpriteSetCenter(&sprites[7], 0.5f, 0.5f);
             C2D_SpriteSetPos(&sprites[7], 160.0f, 140.0f);
@@ -79,7 +78,7 @@ void Render_FormatNumber(long long num, char* buf, size_t size) {
 void Render_UpdateMoneyText(PlayerData* player) {
     if (player->argent != last_argent_drawn || player->revenu_passif_sec != last_revenu_drawn || player->influence != last_influence_drawn) {
         C2D_TextBufClear(dynamicBuf);
-        char moneyStr[256], infStr[128], aStr[32], cStr[32], pStr[32], iStr[32], mStr[32];
+        char moneyStr[64], statsStr[128], infStr[128], aStr[32], cStr[32], pStr[32], iStr[32], mStr[32];
         
         Render_FormatNumber(player->argent, aStr, 32);
         Render_FormatNumber(player->click_power, cStr, 32);
@@ -87,9 +86,13 @@ void Render_UpdateMoneyText(PlayerData* player) {
         Render_FormatNumber(player->influence, iStr, 32);
         Render_FormatNumber(INFLUENCE_MAX, mStr, 32);
         
-        snprintf(moneyStr, sizeof(moneyStr), "Banque : %se\nClic : %s | Passif : %s/s", aStr, cStr, pStr);
+        snprintf(moneyStr, sizeof(moneyStr), "%s \u20AC", aStr);
         C2D_TextParse(&moneyText, dynamicBuf, moneyStr);
         C2D_TextOptimize(&moneyText);
+
+        snprintf(statsStr, sizeof(statsStr), "Clic: %s | Passif: %s/s", cStr, pStr);
+        C2D_TextParse(&statsText, dynamicBuf, statsStr);
+        C2D_TextOptimize(&statsText);
 
         snprintf(infStr, sizeof(infStr), "Influence : %s / %s", iStr, mStr);
         C2D_TextParse(&infText, dynamicBuf, infStr);
@@ -124,26 +127,22 @@ void Render_UpdateShopText(PlayerData* player, int shopScroll, int shopCategory)
     }
     
     int offset = snprintf(shopStr, sizeof(shopStr), 
-        "Onglet: %s (L/R:Changer | H/B:Defiler)\n\n", tabName);
+        "--- %s ---\n(L/R: Naviguer | H/B: Defiler)\n\n", tabName);
 
-    for (int i = 0; i < 4; i++) {
+    for (int i = 0; i < 5; i++) {
         int idx = shopScroll + i;
         if (idx < maxItems) {
             char coutP[32];
             Render_FormatNumber(currentArray[idx].cout_actuel, coutP, 32);
             
-            char type_icon = shopCategory == 0 ? 'M' : (shopCategory == 1 ? 'G' : 'E');
-
             offset += snprintf(shopStr + offset, sizeof(shopStr) - offset, 
-                "[%c] %s (Nv.%d) : %se\n\n", 
-                type_icon, currentArray[idx].nom, currentArray[idx].niveau, coutP);
+                "%s (Nv.%d) : %s\u20AC\n\n", 
+                currentArray[idx].nom, currentArray[idx].niveau, coutP);
         }
     }
         
     C2D_TextParse(&shopText, staticBuf, shopStr);
     C2D_TextOptimize(&shopText);
-    
-    C2D_TextParse(&startText, staticBuf, "Cliquez ou Appuyez sur A"); 
 }
 
 void Render_DrawTitleScreen(void) {
@@ -178,13 +177,25 @@ void Render_DrawMainScreen(PlayerData* player, int clickAnimTimer) {
     C2D_DrawRectSolid(50.0f, 15.0f, 0.5f, currentWidth, 20.0f, colorBurgundy);
     C2D_DrawText(&infText, C2D_WithColor | C2D_AtBaseline | C2D_AlignCenter, 200.0f, 30.0f, 0.5f, 0.6f, 0.6f, colorWhite);
 
-    C2D_DrawText(&moneyText, C2D_WithColor | C2D_AtBaseline | C2D_AlignCenter, 200.0f, 130.0f, 0.5f, 1.0f, 1.0f, colorGold);
+    if (spriteLoaded[14]) {
+        C2D_SpriteSetPos(&sprites[14], 5.0f, 185.0f);
+        C2D_DrawSprite(&sprites[14]);
+    }
+    
+    float mScaleX = 0.50f;
+    float mScaleY = 0.65f;
+    if (clickAnimTimer > 0) {
+        mScaleX = 0.55f;
+        mScaleY = 0.70f;
+    }
+    
+    C2D_DrawText(&moneyText, C2D_WithColor | C2D_AtBaseline | C2D_AlignLeft, 50.0f, 218.0f, 0.5f, mScaleX, mScaleY, colorGold);
+    C2D_DrawText(&statsText, C2D_WithColor | C2D_AtBaseline | C2D_AlignRight, 390.0f, 225.0f, 0.5f, 0.6f, 0.6f, colorWhite);
 
     C2D_TargetClear(bottomScreen, colorDeepPurple);
     C2D_SceneBegin(bottomScreen);
     if (spriteLoaded[2]) C2D_DrawSprite(&sprites[2]);
     if (spriteLoaded[3]) C2D_DrawSprite(&sprites[3]);
-    if (spriteLoaded[6]) C2D_DrawSprite(&sprites[6]);
     
     if (spriteLoaded[7] && spriteLoaded[8]) {
         if (clickAnimTimer > 0) C2D_DrawSprite(&sprites[8]);
@@ -193,20 +204,38 @@ void Render_DrawMainScreen(PlayerData* player, int clickAnimTimer) {
         C2D_DrawCircleSolid(160.0f, 140.0f, 0.0f, 45.0f, colorWhite);
     }
 
-    u64 timeMs = osGetTime();
+    int active_indices[NB_MEMBRES];
+    int active_count = 0;
+    
     for (int i = 0; i < NB_MEMBRES; i++) {
         if (player->membres[i].niveau > 0 && player->membres[i].render_x >= 0.0f) {
-            int speed = 1000 / (player->membres[i].revenu > 0 ? player->membres[i].revenu : 1);
-            if (speed < 100) speed = 100;
-            if (speed > 1000) speed = 1000;
-            
-            int frame = (timeMs / speed) % 2;
-            int spriteIndex = (player->membres[i].visual_type == 0) ? (9 + frame) : (11 + frame);
-            
-            if (spriteLoaded[spriteIndex]) {
-                C2D_SpriteSetPos(&sprites[spriteIndex], player->membres[i].render_x, player->membres[i].render_y);
-                C2D_DrawSprite(&sprites[spriteIndex]);
+            active_indices[active_count++] = i;
+        }
+    }
+    
+    for (int i = 0; i < active_count - 1; i++) {
+        for (int j = 0; j < active_count - i - 1; j++) {
+            if (player->membres[active_indices[j]].render_y > player->membres[active_indices[j+1]].render_y) {
+                int temp = active_indices[j];
+                active_indices[j] = active_indices[j+1];
+                active_indices[j+1] = temp;
             }
+        }
+    }
+
+    u64 timeMs = osGetTime();
+    for (int i = 0; i < active_count; i++) {
+        int idx = active_indices[i];
+        int speed = 1000 / (player->membres[idx].revenu > 0 ? player->membres[idx].revenu : 1);
+        if (speed < 100) speed = 100;
+        if (speed > 1000) speed = 1000;
+        
+        int frame = (timeMs / speed) % 2;
+        int spriteIndex = (player->membres[idx].visual_type == 0) ? (9 + frame) : (11 + frame);
+        
+        if (spriteLoaded[spriteIndex]) {
+            C2D_SpriteSetPos(&sprites[spriteIndex], player->membres[idx].render_x, player->membres[idx].render_y);
+            C2D_DrawSprite(&sprites[spriteIndex]);
         }
     }
 
@@ -241,11 +270,17 @@ void Render_DrawShopScreen(PlayerData* player, int shopScroll) {
     C2D_DrawRectSolid(50.0f, 15.0f, 0.5f, currentWidth, 20.0f, colorBurgundy);
     C2D_DrawText(&infText, C2D_WithColor | C2D_AtBaseline | C2D_AlignCenter, 200.0f, 30.0f, 0.5f, 0.6f, 0.6f, colorWhite);
 
-    C2D_DrawText(&moneyText, C2D_WithColor | C2D_AtBaseline | C2D_AlignCenter, 200.0f, 130.0f, 0.5f, 1.0f, 1.0f, colorGold);
+    if (spriteLoaded[14]) {
+        C2D_SpriteSetPos(&sprites[14], 5.0f, 185.0f);
+        C2D_DrawSprite(&sprites[14]);
+    }
+    
+    C2D_DrawText(&moneyText, C2D_WithColor | C2D_AtBaseline | C2D_AlignLeft, 50.0f, 218.0f, 0.5f, 0.50f, 0.65f, colorGold);
+    C2D_DrawText(&statsText, C2D_WithColor | C2D_AtBaseline | C2D_AlignRight, 390.0f, 225.0f, 0.5f, 0.6f, 0.6f, colorWhite);
 
     C2D_TargetClear(bottomScreen, colorBurgundy);
     C2D_SceneBegin(bottomScreen);
-    C2D_DrawText(&shopText, C2D_WithColor | C2D_AtBaseline | C2D_AlignCenter, 160.0f, 25.0f, 0.5f, 0.6f, 0.6f, colorWhite);
+    C2D_DrawText(&shopText, C2D_WithColor | C2D_AtBaseline | C2D_AlignCenter, 160.0f, 20.0f, 0.5f, 0.5f, 0.5f, colorWhite);
 }
 
 void Render_Exit(void) {

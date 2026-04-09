@@ -5,48 +5,48 @@
 
 void Game_InitDefaultItems(PlayerData* player) {
     ItemBoutique m[NB_MEMBRES] = {
-        {ITEM_MEMBRE, 1, "Membre 1", 15LL, 1LL, "Rapporte 1/sec", 0, 15LL},
-        {ITEM_MEMBRE, 2, "Membre 2", 50LL, 3LL, "Rapporte 3/sec", 0, 50LL},
-        {ITEM_MEMBRE, 3, "Membre 3", 150LL, 8LL, "Rapporte 8/sec", 0, 150LL},
-        {ITEM_MEMBRE, 4, "Membre 4", 400LL, 18LL, "Rapporte 18/sec", 0, 400LL},
-        {ITEM_MEMBRE, 5, "Membre 5", 1000LL, 40LL, "Rapporte 40/sec", 0, 1000LL},
-        {ITEM_MEMBRE, 6, "Membre 6", 2500LL, 90LL, "Rapporte 90/sec", 0, 2500LL},
-        {ITEM_MEMBRE, 7, "Membre 7", 6000LL, 200LL, "Rapporte 200/sec", 0, 6000LL},
-        {ITEM_MEMBRE, 8, "Membre 8", 15000LL, 450LL, "Rapporte 450/sec", 0, 15000LL},
-        {ITEM_MEMBRE, 9, "Membre 9", 35000LL, 1000LL, "Rapporte 1000/sec", 0, 35000LL},
-        {ITEM_MEMBRE, 10, "Membre 10", 80000LL, 2100LL, "Rapporte 2100/sec", 0, 80000LL},
-        {ITEM_MEMBRE, 11, "Membre 11", 180000LL, 4500LL, "Rapporte 4500/sec", 0, 180000LL},
-        {ITEM_MEMBRE, 12, "Membre 12", 400000LL, 9500LL, "Rapporte 9500/sec", 0, 400000LL},
-        {ITEM_MEMBRE, 13, "Membre 13", 900000LL, 20000LL, "Rapporte 20000/sec", 0, 900000LL},
-        {ITEM_MEMBRE, 14, "Membre 14", 2000000LL, 42000LL, "Rapporte 42000/sec", 0, 2000000LL},
-        {ITEM_MEMBRE, 15, "Membre 15", 4500000LL, 90000LL, "Rapporte 90000/sec", 0, 4500000LL},
-        {ITEM_MEMBRE, 16, "Membre 16", 10000000LL, 190000LL, "Rapporte 190000/sec", 0, 10000000LL},
-        {ITEM_MEMBRE, 17, "Membre 17", 22000000LL, 400000LL, "Rapporte 400000/sec", 0, 22000000LL},
-        {ITEM_MEMBRE, 18, "Membre 18", 50000000LL, 850000LL, "Rapporte 850000/sec", 0, 50000000LL},
-        {ITEM_MEMBRE, 19, "Membre 19", 110000000LL, 1800000LL, "Rapporte 1800000/sec", 0, 110000000LL},
-        {ITEM_MEMBRE, 20, "Membre 20", 250000000LL, 3900000LL, "Rapporte 3900000/sec", 0, 250000000LL},
-        {ITEM_MEMBRE, 21, "Membre 21", 550000000LL, 8000000LL, "Rapporte 8000000/sec", 0, 550000000LL},
-        {ITEM_MEMBRE, 22, "Membre 22", 900000000LL, 12500000LL, "Rapporte 12500000/sec", 0, 900000000LL},
-        {ITEM_MEMBRE, 23, "Membre 23", 1300000000LL, 17500000LL, "Rapporte 17500000/sec", 0, 1300000000LL},
-        {ITEM_MEMBRE, 24, "Membre 24", 1600000000LL, 21000000LL, "Rapporte 21000000/sec", 0, 1600000000LL},
-        {ITEM_MEMBRE, 25, "Membre 25", 1900000000LL, 24000000LL, "Rapporte 24000000/sec", 0, 1900000000LL},
-        {ITEM_MEMBRE, 26, "Membre 26", 2100000000LL, 26000000LL, "Rapporte 26000000/sec", 0, 2100000000LL}
+        {ITEM_MEMBRE, 1, "Quent'Incendio", 15LL, 1LL, "Rapporte 1/sec", 0, 15LL},
+        {ITEM_MEMBRE, 2, "Loup Garou", 50LL, 3LL, "Rapporte 3/sec", 0, 50LL},
+        {ITEM_MEMBRE, 3, "Doriengorgio", 150LL, 8LL, "Rapporte 8/sec", 0, 150LL},
+        {ITEM_MEMBRE, 4, "Mattdragore", 400LL, 18LL, "Rapporte 18/sec", 0, 400LL},
+        {ITEM_MEMBRE, 5, "Spero Bayonnum", 1000LL, 40LL, "Rapporte 40/sec", 0, 1000LL},
+        {ITEM_MEMBRE, 6, "Hadrig", 2500LL, 90LL, "Rapporte 90/sec", 0, 2500LL},
+        {ITEM_MEMBRE, 7, "Dobby’tille", 6000LL, 200LL, "Rapporte 200/sec", 0, 6000LL},
+        {ITEM_MEMBRE, 8, "Elisazkaba", 15000LL, 450LL, "Rapporte 450/sec", 0, 15000LL},
+        {ITEM_MEMBRE, 9, "EmmaLfoy", 35000LL, 1000LL, "Rapporte 1000/sec", 0, 35000LL},
+        {ITEM_MEMBRE, 10, "Ilona Lovegood", 80000LL, 2100LL, "Rapporte 2100/sec", 0, 80000LL},
+        {ITEM_MEMBRE, 11, "Juleviosa", 180000LL, 4500LL, "Rapporte 4500/sec", 0, 180000LL},
+        {ITEM_MEMBRE, 12, "Loupin", 400000LL, 9500LL, "Rapporte 9500/sec", 0, 400000LL},
+        {ITEM_MEMBRE, 13, "Wingardium Lucilosa", 900000LL, 20000LL, "Rapporte 20000/sec", 0, 900000LL},
+        {ITEM_MEMBRE, 14, "Marry Potter", 2000000LL, 42000LL, "Rapporte 42000/sec", 0, 2000000LL},
+        {ITEM_MEMBRE, 15, "Mathiserpentard", 4500000LL, 90000LL, "Rapporte 90000/sec", 0, 4500000LL},
+        {ITEM_MEMBRE, 16, "Maléthis", 10000000LL, 190000LL, "Rapporte 190000/sec", 0, 10000000LL},
+        {ITEM_MEMBRE, 17, "Nathangemort", 22000000LL, 400000LL, "Rapporte 400000/sec", 0, 22000000LL},
+        {ITEM_MEMBRE, 18, "Noalbus Dumbledore", 50000000LL, 850000LL, "Rapporte 850000/sec", 0, 50000000LL},
+        {ITEM_MEMBRE, 19, "Chabada-Kedavra", 110000000LL, 1800000LL, "Rapporte 1800000/sec", 0, 110000000LL},
+        {ITEM_MEMBRE, 20, "Sar’pentard", 250000000LL, 3900000LL, "Rapporte 3900000/sec", 0, 250000000LL},
+        {ITEM_MEMBRE, 21, "Tangryffondor", 550000000LL, 8000000LL, "Rapporte 8000000/sec", 0, 550000000LL},
+        {ITEM_MEMBRE, 22, "BellaTriTrix", 900000000LL, 12500000LL, "Rapporte 12500000/sec", 0, 900000000LL},
+        {ITEM_MEMBRE, 23, "TinLestrange", 1300000000LL, 17500000LL, "Rapporte 17500000/sec", 0, 1300000000LL},
+        {ITEM_MEMBRE, 24, "BabavadaKedavra", 1600000000LL, 21000000LL, "Rapporte 21000000/sec", 0, 1600000000LL},
+        {ITEM_MEMBRE, 25, "Azkabande", 1900000000LL, 24000000LL, "Rapporte 24000000/sec", 0, 1900000000LL},
+        {ITEM_MEMBRE, 26, "Expecto Hugonum", 2100000000LL, 26000000LL, "Rapporte 26000000/sec", 0, 2100000000LL}
     };
     
     ItemBoutique g[NB_GOODIES] = {
-        {ITEM_GOODY, 27, "Goody 1", 50LL, 2LL, "Ameliore tes clics", 0, 50LL},
-        {ITEM_GOODY, 28, "Goody 2", 500LL, 15LL, "Ameliore tes clics", 0, 500LL},
-        {ITEM_GOODY, 29, "Goody 3", 5000LL, 100LL, "Ameliore tes clics", 0, 5000LL},
-        {ITEM_GOODY, 30, "Goody 4", 50000LL, 800LL, "Ameliore tes clics", 0, 50000LL},
-        {ITEM_GOODY, 31, "Goody 5", 500000LL, 6000LL, "Ameliore tes clics", 0, 500000LL},
-        {ITEM_GOODY, 32, "Goody 6", 5000000LL, 50000LL, "Ameliore tes clics", 0, 5000000LL}
+        {ITEM_GOODY, 27, "Baguette magique", 50LL, 2LL, "Ameliore tes clics", 0, 50LL},
+        {ITEM_GOODY, 28, "Gobelet", 500LL, 15LL, "Ameliore tes clics", 0, 500LL},
+        {ITEM_GOODY, 29, "bracelet", 5000LL, 100LL, "Ameliore tes clics", 0, 5000LL},
+        {ITEM_GOODY, 30, "Repas Nachos", 50000LL, 800LL, "Ameliore tes clics", 0, 50000LL},
+        {ITEM_GOODY, 31, "Menu Burger King", 500000LL, 6000LL, "Ameliore tes clics", 0, 500000LL},
+        {ITEM_GOODY, 32, "Pull HarryPottech", 5000000LL, 50000LL, "Ameliore tes clics", 0, 5000000LL}
     };
     
     ItemBoutique e[NB_EVENTS] = {
-        {ITEM_EVENT, 33, "Event 1", 1000LL, 50LL, "Boost d influence", 0, 1000LL},
-        {ITEM_EVENT, 34, "Event 2", 10000LL, 600LL, "Boost d influence", 0, 10000LL},
-        {ITEM_EVENT, 35, "Event 3", 100000LL, 8000LL, "Boost d influence", 0, 100000LL},
-        {ITEM_EVENT, 36, "Event 4", 1000000LL, 100000LL, "Boost d influence", 0, 1000000LL}
+        {ITEM_EVENT, 33, "Hot-Rod", 1000LL, 50LL, "Boost d influence", 0, 1000LL},
+        {ITEM_EVENT, 34, "Libération de Dobbi", 10000LL, 600LL, "Boost d influence", 0, 10000LL},
+        {ITEM_EVENT, 35, "Serpent-Volant", 100000LL, 8000LL, "Boost d influence", 0, 100000LL},
+        {ITEM_EVENT, 36, "Académide de la Bière", 1000000LL, 100000LL, "Boost d influence", 0, 1000000LL}
     };
 
     memcpy(player->membres, m, sizeof(m));

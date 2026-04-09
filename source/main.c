@@ -2,10 +2,10 @@
 #include "game.h"
 #include "render.h"
 
-#define UI_SHOP_X_MIN 260
-#define UI_SHOP_X_MAX 320
+#define UI_SHOP_X_MIN 60
+#define UI_SHOP_X_MAX 260
 #define UI_SHOP_Y_MIN 0
-#define UI_SHOP_Y_MAX 50
+#define UI_SHOP_Y_MAX 40
 
 #define UI_CLICK_X_MIN 110
 #define UI_CLICK_X_MAX 210
@@ -51,7 +51,10 @@ int main(int argc, char **argv) {
             bool clicked = false;
             Game_UpdateVifDOr(&player);
             
-            if (kDown & KEY_A) {
+            if (kDown & KEY_X) {
+                player.state = STATE_SHOP;
+                Render_UpdateShopText(&player, shopScroll, shopCategory);
+            } else if (kDown & KEY_A) {
                 clicked = true;
             } else if (kDown & KEY_TOUCH) {
                 touchPosition touch;
@@ -108,7 +111,7 @@ int main(int argc, char **argv) {
                 if (shopScroll > 0) { shopScroll--; ui_needs_update = true; }
             }
             if (kDown & (KEY_DDOWN | KEY_CPAD_DOWN)) {
-                if (shopScroll < currentMaxItems - 4 && currentMaxItems > 4) { 
+                if (shopScroll < currentMaxItems - 5 && currentMaxItems > 5) { 
                     shopScroll++; ui_needs_update = true; 
                 }
             }
@@ -117,9 +120,9 @@ int main(int argc, char **argv) {
                 touchPosition touch;
                 hidTouchRead(&touch);
                 
-                if (touch.py >= 35) {
-                    int uiIndex = (touch.py - 35) / 45;
-                    if (uiIndex >= 0 && uiIndex < 4) {
+                if (touch.py >= 45) {
+                    int uiIndex = (touch.py - 45) / 35;
+                    if (uiIndex >= 0 && uiIndex < 5) {
                         if (Game_BuyItem(&player, (ItemType)shopCategory, shopScroll + uiIndex)) {
                             ui_needs_update = true;
                         }
