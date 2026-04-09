@@ -4,14 +4,14 @@
 
 # Description du jeu :
 
-Il s'agit d'un jeu de type clicker où le but est de rapporter de l'argent à la liste, dans le but d'organiser des événements battre la liste adverse. L'objectif principal est donc d'avoir le plus d'influence.
+Il s'agit d'un jeu de type clicker où le but est de rapporter de l'argent à la liste, dans le but d'organiser des événements pour battre la liste adverse. L'objectif principal est donc d'avoir le plus d'influence.
 
 # Equipe de développement :
 
 Le jeu est développé par Hugo Braux et Baptiste Guilleux, étudiants en troisième année ISIE à Polytech Tours.
 
-Baptiste s'occupe de la gestion de projet ainsi que du développement général.
-Hugo s'occupe du game design ainsi que du développement.
+Baptiste est responsable de la gestion de projet ainsi que de l'environnement de développement et du développement.
+Hugo s'occupe du game design, des textures ainsi que du développement.
 
 # Technologies utilisées :
 
@@ -43,31 +43,41 @@ smdhtool : Outil utilisé pour empaqueter l'icône, le titre, l'auteur et la des
 
 Lime 3DS : Émulateur 3DS utilisé pour exécuter et tester le jeu pendant le développement.
 
-# V1 du jeu :
+# Fonctions principales (v.1.0.0) :
 
   Lancement du jeu :
   
-  - Lancement du jeu et écran d'acceuil avec le logo HarryPottech - The Great Adventure sur l'écran du haut. Sur l'écran du bas, bouton "démarrer la campagne" ou "reprendre la sauvegarde"
+  - Lancement du jeu et écran d'accueil avec le logo HarryPottech sur l'écran du haut. Sur l'écran du bas, bouton "démarrer la campagne".
   
   Jeu principal :
-  - Sur l'écran du bas : zone de clique pour gagner de l'argent (La tête du Président avec des lunettes rondes et un éclair) et boutons pour ouvrir la boutique, les événements, et sauvegarder.
-  - Sur l'écran du haut : affichage du compte en banque / du niveau d'influence vs La Révolutionaliste / des statistiques de génération (argent par seconde) / historique des derniers évenements
+  - Sur l'écran du bas : zone de clique pour gagner de l'argent et boutons pour ouvrir la boutique / sprites animés à chaque fois qu'on achète un nouveau membre.
+  - Sur l'écran du haut : affichage du compte en banque / du niveau d'influence / du niveau de clic / des statistiques de génération (argent par seconde)
 
   Boutique :
   - Recruter des membres de la liste
+  - Acheter des goodies
   - Organiser des événements
 
   Boosts :
   - Membres de la liste : cliquent automatiquement à la place du joueur (certains rapportent plus que d'autres selon leur rareté). Le prix est évolutif à chaque membre recruté
   - Goodies : Améliorent la puissance de vos propres clics (clic manuel)
-  - Events : les events rapportent de l'influence. Les events disponibles sont le petit déjeuner, le repas, l'afterwort et la grosse soirée
+  - Events : les events rapportent de l'influence. Les events disponibles sont le petit déjeuner, le repas, l'afterwork et la grosse soirée
+
+Evenements aléatoires :
+  - Attrapez le vif d'or avant qu'il ne s'échappe pour gagner de l'argent.
 
   Sauvegarde :
-  - Sauvegarde locale sur la carte SD de la 3DS pour garder sa progression.
+  - Sauvegarde locale automatique sur la carte SD de la 3DS pour garder sa progression.
 
-# Equilibrage et métriques :
+# Equilibrage et métriques
 
+L'économie du jeu est pensée pour garder le joueur engagé et éviter qu'il ne s'ennuie :
 
+- **Calcul des prix :** À chaque fois que vous achetez une amélioration (Membre, Goody ou Événement), son prix augmente selon la formule suivante :
+  `Nouveau Prix = Ancien Prix × 1,6`
+  Cela empêche d'acheter en boucle les objets les moins chers et force le joueur à économiser pour débloquer des choses plus puissantes.
+- **Évolution du gameplay :** Le joueur commence par devoir cliquer beaucoup lui-même (puissance augmentée par les Goodies). Mais plus le jeu avance, plus il achète de Membres qui génèrent de l'argent tout seuls. Le jeu passe donc naturellement d'un "cliqueur frénétique" à un jeu de gestion passive.
+- **Récompenses adaptatives :** L'argent gagné en attrapant le Vif d'Or n'est pas fixe. Il s'adapte à la richesse actuelle du joueur (par exemple, en donnant l'équivalent de 30 secondes de revenu passif). Grâce à cela, le Vif d'Or reste toujours très intéressant à attraper, même à la fin du jeu quand on est millionnaire.
 
 # Fonctions additionnelles :
 
